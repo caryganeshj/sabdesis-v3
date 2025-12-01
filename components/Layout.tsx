@@ -17,52 +17,44 @@ export const Layout: React.FC<LayoutProps> = ({
   onToggleAdmin
 }) => {
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-warm-50 text-warm-900">
+    <div className="app-container">
       {/* Header */}
-      <header className="bg-saffron text-white shadow-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-end gap-2">
-            <h1 className="text-4xl font-serif font-bold tracking-wide">SabDesis</h1>
-            <span className="text-sm font-light mb-1 opacity-90">Raleigh</span>
+      <header className="site-header">
+        <div className="header-inner">
+          <div className="logo-area">
+            <h1 className="logo-title">SabDesis</h1>
+            <span className="logo-subtitle">Raleigh</span>
           </div>
           
-          <nav className="hidden md:flex space-x-8">
+          <nav className="main-nav">
             {Object.values(PageType).map((page) => (
               <button
                 key={page}
                 onClick={() => onNavigate(page)}
-                className={`text-lg font-serif hover:text-warm-800 transition-colors ${
-                  currentPage === page ? 'border-b-2 border-white font-bold' : ''
-                }`}
+                className={`nav-link ${currentPage === page ? 'active' : ''}`}
               >
                 {page}
               </button>
             ))}
           </nav>
 
-          <div className="flex items-center">
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <button 
               onClick={onToggleAdmin}
-              className={`text-xs px-3 py-1 rounded-full border ${
-                isAdmin 
-                  ? 'bg-white text-saffron border-white font-bold' 
-                  : 'border-white/50 text-white/70 hover:text-white hover:border-white'
-              }`}
+              className={`admin-badge ${isAdmin ? 'active' : ''}`}
             >
               {isAdmin ? 'Admin ON' : 'Admin'}
             </button>
           </div>
         </div>
         
-        {/* Mobile Menu Bar (Simplified) */}
-        <div className="md:hidden flex justify-around bg-saffron-dark py-2 overflow-x-auto">
+        {/* Mobile Menu Bar */}
+        <div className="mobile-nav">
           {Object.values(PageType).map((page) => (
             <button
               key={page}
               onClick={() => onNavigate(page)}
-              className={`px-3 text-sm font-serif whitespace-nowrap ${
-                 currentPage === page ? 'font-bold text-white' : 'text-white/80'
-              }`}
+              className={`mobile-nav-link ${currentPage === page ? 'active' : ''}`}
             >
               {page}
             </button>
@@ -71,28 +63,28 @@ export const Layout: React.FC<LayoutProps> = ({
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow flex flex-col">
+      <main className="main-content">
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="bg-warm-800 text-warm-100 py-8 mt-auto">
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+      <footer className="site-footer">
+        <div className="footer-inner">
           <div>
-            <h3 className="font-serif text-lg text-saffron-light mb-2">About SabDesis</h3>
-            <p className="opacity-80">Connecting the community through the rhythms and melodies of Indian Classical Music in Raleigh, NC.</p>
+            <h3 className="footer-title">About SabDesis</h3>
+            <p style={{ opacity: 0.8, lineHeight: 1.5 }}>Connecting the community through the rhythms and melodies of Indian Classical Music in Raleigh, NC.</p>
           </div>
           <div>
-            <h3 className="font-serif text-lg text-saffron-light mb-2">Links</h3>
-            <ul className="space-y-1 opacity-80">
-              <li><a href="#" className="hover:text-white">Credits</a></li>
-              <li><a href="#" className="hover:text-white">Acknowledgements</a></li>
-              <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+            <h3 className="footer-title">Links</h3>
+            <ul className="footer-links">
+              <li><a href="#">Credits</a></li>
+              <li><a href="#">Acknowledgements</a></li>
+              <li><a href="#">Privacy Policy</a></li>
             </ul>
           </div>
-          <div className="text-right flex flex-col justify-end">
-            <p className="opacity-60">&copy; {new Date().getFullYear()} SabDesis Portal.</p>
-            <p className="opacity-60 text-xs mt-1">Designed with warmth.</p>
+          <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+            <p style={{ opacity: 0.6 }}>&copy; {new Date().getFullYear()} SabDesis Portal.</p>
+            <p style={{ opacity: 0.6, fontSize: '0.75rem', marginTop: '0.25rem' }}>Designed with warmth.</p>
           </div>
         </div>
       </footer>

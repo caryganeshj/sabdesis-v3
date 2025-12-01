@@ -46,9 +46,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onAddArtists, onAddEvent
     return (
       <button 
         onClick={() => setIsExpanded(true)}
-        className="fixed bottom-4 right-4 bg-saffron text-white p-3 rounded-full shadow-lg z-50 hover:bg-saffron-dark"
+        className="admin-toggle-btn"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{ width: '1.5rem', height: '1.5rem' }}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
       </button>
@@ -56,42 +56,42 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onAddArtists, onAddEvent
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-warm-100 border-t-4 border-saffron shadow-2xl z-40 p-6 animate-slide-up max-h-[50vh] overflow-y-auto">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-4">
-          <div className="flex space-x-4">
+    <div className="admin-drawer">
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div className="admin-header">
+          <div className="admin-tabs">
             <button 
               onClick={() => setActiveTab('artist')}
-              className={`px-4 py-2 rounded-lg font-serif ${activeTab === 'artist' ? 'bg-saffron text-white' : 'bg-white text-warm-800'}`}
+              className={`tab-btn ${activeTab === 'artist' ? 'active' : 'inactive'}`}
             >
               Add Artist Bios
             </button>
             <button 
               onClick={() => setActiveTab('event')}
-              className={`px-4 py-2 rounded-lg font-serif ${activeTab === 'event' ? 'bg-saffron text-white' : 'bg-white text-warm-800'}`}
+              className={`tab-btn ${activeTab === 'event' ? 'active' : 'inactive'}`}
             >
               Add Events
             </button>
           </div>
-          <button onClick={() => setIsExpanded(false)} className="text-warm-500 hover:text-warm-900">
+          <button onClick={() => setIsExpanded(false)} style={{ color: '#6b7280' }}>
             Close
           </button>
         </div>
 
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <p className="text-sm text-gray-500 mb-2">
+        <div className="admin-content">
+          <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '0.5rem' }}>
             {activeTab === 'artist' 
               ? 'Enter each bio as a new line or block. First sentence will be used as the name.' 
               : 'Enter events. To feature an event in the banner, add **Featured** to the line.'}
           </p>
           <textarea
-            className="w-full h-32 p-3 border border-gray-300 rounded focus:ring-2 focus:ring-saffron focus:outline-none resize-none bg-white text-warm-900"
+            className="admin-textarea"
             placeholder={activeTab === 'artist' ? "Paste artist bios here..." : "Artist Name, Date, Venue..."}
             value={textInput}
             onChange={(e) => setTextInput(e.target.value)}
           />
           
-          <div className="flex justify-between mt-4">
+          <div className="admin-actions">
             <div>
               <input 
                 type="file" 
@@ -102,14 +102,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onAddArtists, onAddEvent
               />
               <button 
                 onClick={() => fileInputRef.current?.click()}
-                className="px-4 py-2 border border-saffron text-saffron rounded hover:bg-saffron hover:text-white transition"
+                className="btn-upload"
               >
                 Upload Document
               </button>
             </div>
             <button 
               onClick={handleSubmit}
-              className="px-6 py-2 bg-saffron-dark text-white rounded font-bold hover:bg-saffron transition"
+              className="btn-submit"
             >
               Submit Updates
             </button>

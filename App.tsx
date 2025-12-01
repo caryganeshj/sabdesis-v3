@@ -14,7 +14,7 @@ const App: React.FC = () => {
   
   // Data State
   const [artists, setArtists] = useState<Artist[]>(INITIAL_ARTISTS);
-  const [events, setEvents] = useState<Event[]>([]); // Start empty or add dummies if needed
+  const [events, setEvents] = useState<Event[]>([]); 
   const [orgs, setOrgs] = useState<Organization[]>(INITIAL_ORGS);
 
   // --- Handlers ---
@@ -63,20 +63,20 @@ const App: React.FC = () => {
   const renderContent = () => {
     if (currentPage !== PageType.MUSIC) {
       return (
-        <div className="flex-grow flex items-center justify-center min-h-[50vh] bg-warm-50">
-          <div className="text-center p-8 border-2 border-dashed border-saffron rounded-xl bg-white/50">
-            <h2 className="text-2xl font-serif text-warm-900 mb-4">{currentPage}</h2>
-            <p className="text-warm-700 italic">{PAGE_PLACEHOLDERS[currentPage]}</p>
+        <div className="placeholder-page">
+          <div className="placeholder-box">
+            <h2 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-serif)', marginBottom: '1rem' }}>{currentPage}</h2>
+            <p style={{ fontStyle: 'italic', color: 'var(--color-warm-text-light)' }}>{PAGE_PLACEHOLDERS[currentPage]}</p>
           </div>
         </div>
       );
     }
 
     return (
-      <div className="container mx-auto px-4 py-8 h-full">
-        <div className="flex flex-col md:flex-row gap-6 h-full">
-          {/* Left Column - 20% */}
-          <div className="w-full md:w-1/5">
+      <div className="content-container">
+        <div className="columns-layout">
+          {/* Left Column */}
+          <div className="col-side">
             <ArtistColumn 
               artists={artists} 
               isAdmin={isAdmin}
@@ -85,8 +85,8 @@ const App: React.FC = () => {
             />
           </div>
 
-          {/* Middle Column - 60% */}
-          <div className="w-full md:w-3/5">
+          {/* Middle Column */}
+          <div className="col-center">
             <EventColumn 
               events={events}
               isAdmin={isAdmin}
@@ -95,8 +95,8 @@ const App: React.FC = () => {
             />
           </div>
 
-          {/* Right Column - 20% */}
-          <div className="w-full md:w-1/5">
+          {/* Right Column */}
+          <div className="col-side">
             <OrgColumn 
               orgs={orgs}
               isAdmin={isAdmin}
@@ -116,12 +116,10 @@ const App: React.FC = () => {
       isAdmin={isAdmin} 
       onToggleAdmin={handleToggleAdmin}
     >
-      {/* Banner takes 15% of viewport approx, handled in component styles */}
       {currentPage === PageType.MUSIC && <Banner events={events} />}
       
       {renderContent()}
 
-      {/* Admin Panel Drawer */}
       {isAdmin && (
         <AdminPanel 
           onAddArtists={handleAddArtists}
